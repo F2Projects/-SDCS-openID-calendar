@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.login.data.User;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -33,7 +35,16 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		//request.setAttribute("loginFailedMessage", "Ok, ok, you are a dumb! Username and/or password are/is wrong...");
+        //request.getRequestDispatcher("/Login/index.jsp").forward(request, response);
+		User loggedUser = new User();
+		loggedUser.setName("Pasquale");
+		loggedUser.setSurname("Boemio");
+		loggedUser.setUsername("pau");
+		loggedUser.setRole("Student");
+		request.setAttribute("current_user", loggedUser);
+		request.getRequestDispatcher("/profile.jsp").forward(request, response);
+		
 	}
 
 }
