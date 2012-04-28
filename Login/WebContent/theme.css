@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+body {
+        background-image:url('logo.png');
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        background-position:right; 
+        font-family:"Verdana", Sans-serif;
+}
+
+.main{
+        width: 80%;
+        margin: 20% auto;
+}
+
+
+.welcome {
+        width: 40%;
+        margin: 0; padding: 0;
+        float: left;
+        font-weight: bolder;
+        
+}
+
+.loginForm {
+        margin: 0; padding: 0;
+        float: right;
+        border: 1px solid black;
+        
+}
