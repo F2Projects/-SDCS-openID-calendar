@@ -8,7 +8,7 @@
 	User currentUser = (User)request.getAttribute("current_user");
 	File[] repoFiles = (File[])request.getAttribute("repoFiles");
 	if(currentUser==null){
-		request.setAttribute("loginFailedMessage", "Are you trying to fucking me? You must login to access to private area...");
+		request.setAttribute("loginFailedMessage", "Are you trying to fuck me? You must login to access to private area...");
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 		currentUser = new User();
 	}

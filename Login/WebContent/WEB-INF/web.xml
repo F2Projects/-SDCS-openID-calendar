@@ -20,4 +20,12 @@
     <servlet-name>UploadServlet</servlet-name>
     <url-pattern>/remote/upload</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>RegistrationServlet</servlet-name>
+    <servlet-class>com.login.RegistrationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegistrationServlet</servlet-name>
+    <url-pattern>/remote/register</url-pattern>
+  </servlet-mapping>
 </web-app>

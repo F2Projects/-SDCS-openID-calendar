@@ -11,7 +11,7 @@
 </div>
 <div class="main" align="center">
 	<div class="registrationForm"  align="center">
-		<form action="">
+		<form action="/Login/remote/register" method="post">
 			<table>
 			<tr>
 			<td>Real name: </td><td><input type="text" name="name" id="name"></td>
@@ -21,9 +21,9 @@
 			</tr>
 			<tr>
 			<td>Role: </td><td><select id="role" name="role">
-				<option value="student">Student</option>
-				<option value="teacher">Teacher</option>
-				<option value="guest">Guest</option>
+				<option value="STUDENT">Student</option>
+				<option value="TEACHER">Teacher</option>
+				<option value="GUEST">Guest</option>
 			</select></td>
 			</tr>
 			<tr>
@@ -33,7 +33,7 @@
 			<td>Password: </td><td><input type="password" name="password" id="password"></td>
 			</tr>
 			<tr align="right">
-			<td></td><td><input type="submit" value="Register!"></td>
+			<td><input type="button" value="Back to index" onclick="location.href='/Login/index.jsp'"></td><td><input type="submit" value="Register!"></td>
 			</tr>
 			</table>
 		</form>

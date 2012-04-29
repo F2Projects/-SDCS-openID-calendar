@@ -1,13 +1,16 @@
 package com.login;
 
 import java.io.IOException;
+
+import javax.security.auth.login.LoginContext;
+import javax.security.auth.login.LoginException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.login.data.UsersDB;
+import com.login.jaascommons.LoginCallBackHandler;
 import com.login.repo.Repo;
 
 /**
@@ -57,6 +60,14 @@ public class LoginServlet extends HttpServlet {
 	}
 	
 	private boolean doLogin(String username, String password){
+		LoginCallBackHandler loginCB = new LoginCallBackHandler(username, password);
+		try {
+			LoginContext loginContext = new LoginContext("SDSCLogin", loginCB);
+			loginContext.login();
+		} catch (LoginException e) {
+			return false;
+		}
+		
 		return true;
 		
 	}
