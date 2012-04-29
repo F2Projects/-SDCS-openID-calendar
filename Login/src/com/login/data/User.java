@@ -7,6 +7,14 @@ public class User {
 	private String password;
 	private String role;
 	
+	public User(){
+		this.name="";
+		this.surname="";
+		this.username="";
+		this.password="";
+		this.role="";
+	}
+	
 	public String getName() {
 		return name;
 	}

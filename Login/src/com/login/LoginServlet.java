@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.login.data.User;
+import com.login.data.UsersDB;
+import com.login.repo.Repo;
 
 /**
  * Servlet implementation class LoginServlet
@@ -15,12 +16,14 @@ import com.login.data.User;
 @WebServlet(description = "A simple login servlet", urlPatterns = { "/LoginServlet" })
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final UsersDB db;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public LoginServlet() {
         super();
+        this.db = UsersDB.getDb();
     }
 
 	/**
@@ -35,15 +38,26 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//request.setAttribute("loginFailedMessage", "Ok, ok, you are a dumb! Username and/or password are/is wrong...");
-        //request.getRequestDispatcher("/Login/index.jsp").forward(request, response);
-		User loggedUser = new User();
-		loggedUser.setName("Pasquale");
-		loggedUser.setSurname("Boemio");
-		loggedUser.setUsername("pau");
-		loggedUser.setRole("Student");
-		request.setAttribute("current_user", loggedUser);
-		request.getRequestDispatcher("/profile.jsp").forward(request, response);
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		if(this.doLogin(username, password)){
+			
+			request.setAttribute("current_user", this.db.getAnUser(username));
+		
+			Repo myRepo = Repo.getRepo();
+			request.setAttribute("repoFiles", myRepo.getFileList());
+			request.getRequestDispatcher("/profile.jsp").forward(request, response);
+		}
+		else{
+			request.setAttribute("loginFailedMessage", "Ok, ok, you are a dumb! Username and/or password are/is wrong...");
+	        request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}
+		
+	}
+	
+	private boolean doLogin(String username, String password){
+		return true;
 		
 	}
 
