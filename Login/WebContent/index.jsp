@@ -22,7 +22,7 @@ function check(form){
 	<h2>Login</h2>
 </div>
 <div class="main">
-	<div class="welcome">
+	<div class="welcome" align="justify">
 		Welcome to SDSC Project.<br>
 		Please insert your username and your password into the form to access.<br>
 		If you don't have them, please <a href="/Login/register.html">register</a> yourself!

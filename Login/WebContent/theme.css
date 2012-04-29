@@ -23,6 +23,11 @@ body {
         
 }
 
+.fileBrowser {
+	margin: 0; padding: 0;
+	float: right;
+}
+
 .loginForm {
 	margin: 0; padding: 0;
 	float: right;
