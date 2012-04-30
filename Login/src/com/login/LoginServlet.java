@@ -43,7 +43,10 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		if(this.doLogin(username, password)){
+		LoginHolder.setUsername(username);
+		LoginHolder.setPassword(password);
+		
+		if(this.doLogin()){
 			
 			request.setAttribute("current_user", this.db.getAnUser(username));
 		
@@ -59,10 +62,11 @@ public class LoginServlet extends HttpServlet {
 		
 	}
 	
-	private boolean doLogin(String username, String password) throws ServletException{
+	private boolean doLogin(){
 		try {
-			LoginHolder.getContext(username, password).login();
+			LoginHolder.getContext().login();
 		} catch (LoginException e) {
+			LoginHolder.cleanContext();
 			return false;
 		}
 		

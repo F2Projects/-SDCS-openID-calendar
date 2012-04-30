@@ -29,7 +29,6 @@
 		I'm logged in as <% out.print(currentUser.getUsername()); %><br>
 		<form action="/Login/remote/logout" method="post">
 		<input type="hidden" id="username" name="username" value="<% out.print(currentUser.getUsername()); %>">
-		<input type="hidden" id="password" name="password" value="<% out.print(currentUser.getPassword()); %>">
 		<input type="submit" value="Logout">
 		</form>
 	</div>
