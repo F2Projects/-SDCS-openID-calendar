@@ -70,9 +70,13 @@ public class UploadServlet extends HttpServlet {
 			request.setAttribute("uploadStatus", "No file received!");
 		}
 		
-		request.setAttribute("repoFiles", repo.getFileList());
-		request.setAttribute("current_user", db.getAnUser(username));
-		request.getRequestDispatcher("/profile.jsp").forward(request, response);
+		try {
+			request.setAttribute("repoFiles", repo.getFileList());
+			request.setAttribute("current_user", db.getAnUser(username));
+			request.getRequestDispatcher("/profile.jsp").forward(request, response);
+		} catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 	
 }

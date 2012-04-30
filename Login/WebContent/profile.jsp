@@ -26,7 +26,12 @@
 	<div class="welcome" align="center">
 		Hi, <br> 
 		I'm <%out.print(currentUser.getName() + " " + currentUser.getSurname());%> and I'm a <% out.print(currentUser.getRole()); %><br>
-		I'm logged in as <% out.print(currentUser.getUsername()); %>
+		I'm logged in as <% out.print(currentUser.getUsername()); %><br>
+		<form action="/Login/remote/logout" method="post">
+		<input type="hidden" id="username" name="username" value="<% out.print(currentUser.getUsername()); %>">
+		<input type="hidden" id="password" name="password" value="<% out.print(currentUser.getPassword()); %>">
+		<input type="submit" value="Logout">
+		</form>
 	</div>
 	<div class="fileBrowser">
 		<form action="/Login/remote/upload" enctype="multipart/form-data" method="post">

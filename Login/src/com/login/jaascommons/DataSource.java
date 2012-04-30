@@ -11,6 +11,7 @@ import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
+import com.login.data.User;
 import com.login.data.UsersDB;
 
 @SuppressWarnings("rawtypes")
@@ -45,8 +46,8 @@ public class DataSource implements LoginModule {
 			this.handler.handle(callbacks);
 			String username = ((NameCallback)callbacks[0]).getName();
 			String password = new String(((PasswordCallback)callbacks[1]).getPassword());
-			String foundPassword = db.getPassword(username);
-			if(password.equals(foundPassword))
+			User foundUser = db.getAnUser(username);
+			if(password.equals(foundUser.getPassword()))
 				this.loginPassed = true;
 			else{
 				this.loginPassed = false;
@@ -57,7 +58,7 @@ public class DataSource implements LoginModule {
             throw e; 
 		} catch (Exception e) {
 			this.loginPassed = false;
-			throw new LoginException();
+			throw new LoginException(e.getMessage());
 			
 		}
 		

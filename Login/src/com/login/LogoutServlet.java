@@ -8,24 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.login.data.UsersDB;
 import com.login.jaascommons.LoginHolder;
 import com.login.repo.Repo;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet(description = "A simple login servlet", urlPatterns = { "/LoginServlet" })
-public class LoginServlet extends HttpServlet {
+@WebServlet("/LogoutServlet")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final UsersDB db;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public LogoutServlet() {
         super();
-        this.db = UsersDB.getDb();
     }
 
 	/**
@@ -33,7 +32,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
-		
 	}
 
 	/**
@@ -43,31 +41,18 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		if(this.doLogin(username, password)){
-			
-			request.setAttribute("current_user", this.db.getAnUser(username));
 		
-			Repo myRepo = Repo.getRepo();
-			request.setAttribute("repoFiles", myRepo.getFileList());
+		try {
+			LoginHolder.getContext(username, password).logout();
+			LoginHolder.cleanContext();
+			request.setAttribute("loginFailedMessage", "User " + username + " logged out!");
+		    request.getRequestDispatcher("/index.jsp").forward(request, response);
+		} catch (LoginException e) {
+			request.setAttribute("current_user", UsersDB.getDb().getAnUser(username));
+			request.setAttribute("repoFiles", Repo.getRepo().getFileList());
+			request.setAttribute("uploadStatus", e.getMessage());
 			request.getRequestDispatcher("/profile.jsp").forward(request, response);
 		}
-		else{
-			request.setAttribute("loginFailedMessage", "Ok, ok, you are a dumb! Username and/or password are/is wrong...");
-		    request.getRequestDispatcher("/index.jsp").forward(request, response);
-		}
-		
 		
 	}
-	
-	private boolean doLogin(String username, String password) throws ServletException{
-		try {
-			LoginHolder.getContext(username, password).login();
-		} catch (LoginException e) {
-			return false;
-		}
-		
-		return true;
-		
-	}
-
 }
