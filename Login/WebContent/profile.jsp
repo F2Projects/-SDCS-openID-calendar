@@ -43,8 +43,11 @@
 			out.print("<table>");
 			for(File f : repoFiles){
 				String fileName;
+				String displayName = f.getName();
+				if(displayName.length()>32)
+					displayName = displayName.substring(0, 29) + "...";
 				if(currentUser.getRole().equals("Student") || currentUser.getRole().equals("Teacher"))
-					fileName="<a href=\"\\Login\\Repo\\" +f.getName() +"\">" + f.getName() + "</a>";
+					fileName="<a href=\"\\Login\\Repo\\" +f.getName() +"\">" + displayName + "</a>";
 				else
 					fileName=f.getName();
 				out.print("<tr><td>" + fileName + "</tr></td>");

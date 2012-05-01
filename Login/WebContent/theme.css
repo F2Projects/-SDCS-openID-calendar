@@ -26,7 +26,9 @@ body {
 .fileBrowser {
 	margin: 0; padding: 0;
 	float: right;
-	height: 50%;
+	max-height: 250px;
+	width: 40%;
+	overflow: auto;
 }
 
 .loginForm {
