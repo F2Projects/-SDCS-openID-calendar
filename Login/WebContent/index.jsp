@@ -5,17 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="/Login/theme.css">
 <title>Security and Dependability of Computer Systems</title>
-<script>
-function check(form){
-	if(form["username"].value!="" && form["password"].value!=""){
-		return true;
-	}
-	else{
-		document.getElementById('messageContainer').innerHTML = "AYKM? Please insert a valid username and password!";
-		return false;
-	}
-}
-</script>
 </head>
 <body>
 <div class="titleBar">
@@ -24,27 +13,15 @@ function check(form){
 <div class="main">
 	<div class="welcome" align="justify">
 		Welcome to SDCS Project.<br>
-		Please insert your username and your password into the form to access.<br>
-		If you don't have them, please <a href="/Login/register.html">register</a> yourself!
 	</div>
 	<div class="loginForm">
-		<form action="/Login/remote/login" method="post" onsubmit="return check(this);">
-			<table>
-			<tr>
-			<td>Username: </td><td><input type="text" name="username" id="username"></td>
-			</tr>
-			<tr>
-			<td>Password: </td><td><input type="password" name="password" id="password"></td>
-			</tr>
-			<tr align="right">
-			<td></td><td><input type="submit" value="Login!"></td>
-			</tr>
-			</table>
+		<form action="/Login/remote/login" method="post">
+			<input type="submit" value="Login with Google">
 		</form>
 	</div>
 </div>
 <div class="message" id="messageContainer">
-<% 
+<%
 	String message = (String)request.getAttribute("loginFailedMessage");
 	if(message!=null)
 		out.print(message);

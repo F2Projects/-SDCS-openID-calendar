@@ -1,3 +1,10 @@
+/**
+ * RegistrationServlet.java
+ * ----------------------------
+ * This servlet is called by "registration.jsp" to store some informations of a new Google user.
+ * In particular, it stores his username (namely email) and his role, that is selected into the page itself. 
+ * Finally it redirects your browser back to the index page.
+ */
 package com.login;
 
 import java.io.IOException;
@@ -36,15 +43,15 @@ public class RegistrationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// User object used to store informations received by the post request
 		User newUser = new User();
-		newUser.setName(request.getParameter("name"));
-		newUser.setSurname(request.getParameter("surname"));
 		newUser.setUsername(request.getParameter("username"));
-		newUser.setPassword(request.getParameter("password"));
 		newUser.setRole(request.getParameter("role"));
 		
+		// we get a db instance where will be called the method saveNewUser to save the newUser object
 		UsersDB db = UsersDB.getDb();
 		String message = db.saveNewUser(newUser);
+		// in the end we come back to index page printing the status message in the bottom of the page
 		request.setAttribute("loginFailedMessage", message);
         request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}

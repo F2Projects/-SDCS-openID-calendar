@@ -1,16 +1,21 @@
+/**
+ * LoginServlet.java
+ * -------------------------
+ * This is the first called servlet. It simply generates the Google OpenID and redirect your browser to it.
+ * Nothing else.
+ * Simply and useful.
+ * All the login procedure are, instead, implemented into the "GoogleLogin.java" class
+ */
 package com.login;
 
 import java.io.IOException;
 
-import javax.security.auth.login.LoginException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.login.data.UsersDB;
-import com.login.jaascommons.LoginHolder;
-import com.login.repo.Repo;
+import com.login.openid.GoogleLogin;
 
 /**
  * Servlet implementation class LoginServlet
@@ -18,14 +23,12 @@ import com.login.repo.Repo;
 @WebServlet(description = "A simple login servlet", urlPatterns = { "/LoginServlet" })
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final UsersDB db;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public LoginServlet() {
         super();
-        this.db = UsersDB.getDb();
     }
 
 	/**
@@ -40,38 +43,16 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		// this is the instance of the class GoogleLogin that we use in every login procedure of this web app
+		GoogleLogin loginManager = new GoogleLogin();
+		// and we save this object as session attribute
+		request.getSession().setAttribute("loginManager", loginManager);
 		
-		LoginHolder.setUsername(username);
-		LoginHolder.setPassword(password);
-		
-		if(this.doLogin()){
-			
-			request.setAttribute("current_user", this.db.getAnUser(username));
-		
-			Repo myRepo = Repo.getRepo();
-			request.setAttribute("repoFiles", myRepo.getFileList());
-			request.getRequestDispatcher("/profile.jsp").forward(request, response);
-		}
-		else{
-			request.setAttribute("loginFailedMessage", "Ok, ok, you are a dumb! Username and/or password are/is wrong...");
-		    request.getRequestDispatcher("/index.jsp").forward(request, response);
-		}
+		// through the method genLoginUrl, we generate the Google OpenID url where, subsequently, your browser will be redirect 
+		String loginUrl = loginManager.genLoginUrl("http://localhost:8080/Login/remote/check");
+		response.sendRedirect(loginUrl);
 		
 		
 	}
 	
-	private boolean doLogin(){
-		try {
-			LoginHolder.getContext().login();
-		} catch (LoginException e) {
-			LoginHolder.cleanContext();
-			return false;
-		}
-		
-		return true;
-		
-	}
-
 }

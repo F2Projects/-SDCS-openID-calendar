@@ -13,28 +13,20 @@
     <url-pattern>/remote/login</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>UploadServlet</servlet-name>
-    <servlet-class>com.login.UploadServlet</servlet-class>
+    <servlet-name>CheckLoginServlet</servlet-name>
+    <servlet-class>com.login.CheckLoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>UploadServlet</servlet-name>
-    <url-pattern>/remote/upload</url-pattern>
+    <servlet-name>CheckLoginServlet</servlet-name>
+    <url-pattern>/remote/check</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>RegistrationServlet</servlet-name>
+    <servlet-name>SaveOnDbServlet</servlet-name>
     <servlet-class>com.login.RegistrationServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RegistrationServlet</servlet-name>
+    <servlet-name>SaveOnDbServlet</servlet-name>
     <url-pattern>/remote/register</url-pattern>
-  </servlet-mapping>
-    <servlet>
-    <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>com.login.LogoutServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LogoutServlet</servlet-name>
-    <url-pattern>/remote/logout</url-pattern>
   </servlet-mapping>
   <resource-ref>
     <description>DB Connection</description>

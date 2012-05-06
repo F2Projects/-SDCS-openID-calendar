@@ -1,3 +1,11 @@
+/**
+ * User.java
+ * -----------------------
+ * This class implements a data structure that holds the informations for an user.
+ * It is useful because user's informations are stored into the local db and into the remote Google db,
+ * so it can give to the implementer an unified vision of them.
+ * The methods are simply getter/setter functions for each inner field.
+ */
 package com.login.data;
 
 public class User {
