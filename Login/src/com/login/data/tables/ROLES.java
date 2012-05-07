@@ -1,4 +1,4 @@
-package com.login.data;
+package com.login.data.tables;
 
 public class ROLES {
 	

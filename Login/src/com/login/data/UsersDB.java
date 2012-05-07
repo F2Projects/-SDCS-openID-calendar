@@ -15,11 +15,17 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.login.data.tables.AGENDA;
+import com.login.data.tables.ROLES;
+import com.login.data.tables.SUBJECTS;
+import com.login.data.tables.USERS_TABLE;
 
 
 public class UsersDB {
@@ -103,6 +109,93 @@ public class UsersDB {
 		// All done, bro!
 		return newUser.getName() + " " + newUser.getSurname() + " added as " + newUser.getUsername();
 	
+	}
+	
+	public synchronized ArrayList<Event> getEventList() throws Exception{
+		String sql = "select " + SUBJECTS.TABLE_NAME + "." + SUBJECTS.NAME_ID + ", " +
+								 AGENDA.TABLE_NAME + "." + AGENDA.DATE_ID + ", " +
+								 AGENDA.TABLE_NAME + "." + AGENDA.COMMENTS_ID + 
+								 " from " + SUBJECTS.TABLE_NAME + ", " + AGENDA.TABLE_NAME +
+								 " where " + AGENDA.TABLE_NAME + "." + AGENDA.EXAM_NAME_ID + "=" + SUBJECTS.TABLE_NAME + "." + SUBJECTS.ID;
+		
+		ArrayList<Event> eventList = new ArrayList<Event>();
+		Statement stmt=null;
+		Connection conn=null;
+		try {
+			// connecting to the database
+			conn = this.getConnectionToDS();
+			stmt = conn.createStatement();
+			// executing the sql query
+			ResultSet rs = stmt.executeQuery(sql);
+			// add found events to the list
+			while(rs.next()){
+				Event currentEvent = new Event();
+				currentEvent.setSubject(rs.getString(SUBJECTS.NAME_ID));
+				currentEvent.setComment(rs.getString(AGENDA.COMMENTS_ID));
+				currentEvent.setDate(rs.getDate(AGENDA.DATE_ID));
+				eventList.add(currentEvent);
+			}
+		} catch (NamingException e) {
+			throw new Exception(e);
+		} catch (SQLException e) {
+			throw new Exception(e);
+		} finally{
+			this.close(conn, stmt);
+		}
+		
+		return eventList;
+	}
+	
+	public synchronized String saveEvent(Event newEvent){
+		// this is the query, written in sql language, used to insert a new user into the local database
+		String sql = "insert into " + AGENDA.TABLE_NAME + " values(null, '" +
+													newEvent.getSubject() + "', '" + 
+													newEvent.getComment() + "', '" + 
+													newEvent.getYear() + "-" + (newEvent.getMounth()+1) + "-" + newEvent.getDay() + "')";
+		
+		try {
+			// connecting to the database
+			Connection conn = this.getConnectionToDS();
+			Statement stmt = conn.createStatement();
+			// executing the sql query
+			stmt.executeUpdate(sql);
+		} catch (Exception e) {
+			// Oh oh.. something goes wrong...
+			return "Event not saved: " + e.getMessage();
+		}
+		
+		// All done, bro!
+		return newEvent.getSubject() + " exam added!";
+	}
+	
+	public synchronized ArrayList<Subject> getSubjectList() throws Exception{
+		String sql = "select * from " + SUBJECTS.TABLE_NAME; 
+		
+		ArrayList<Subject> subjectList = new ArrayList<Subject>();
+		Statement stmt=null;
+		Connection conn=null;
+		try {
+			// connecting to the database
+			conn = this.getConnectionToDS();
+			stmt = conn.createStatement();
+			// executing the sql query
+			ResultSet rs = stmt.executeQuery(sql);
+			// add found events to the list
+			while(rs.next()){
+				Subject retreivedSubject = new Subject();
+				retreivedSubject.setAcronim(rs.getString(SUBJECTS.ID));
+				retreivedSubject.setName(rs.getString(SUBJECTS.NAME_ID));
+				subjectList.add(retreivedSubject);
+			}
+		} catch (NamingException e) {
+			throw new Exception(e);
+		} catch (SQLException e) {
+			throw new Exception(e);
+		} finally{
+			this.close(conn, stmt);
+		}
+		
+		return subjectList;
 	}
 	
 	/**

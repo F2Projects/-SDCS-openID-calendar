@@ -28,6 +28,22 @@
     <servlet-name>SaveOnDbServlet</servlet-name>
     <url-pattern>/remote/register</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>SaveServlet</servlet-name>
+    <servlet-class>com.login.SaveEventServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveServlet</servlet-name>
+    <url-pattern>/remote/save</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>com.login.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/remote/logout</url-pattern>
+  </servlet-mapping>
   <resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/SdcsDb</res-ref-name>
