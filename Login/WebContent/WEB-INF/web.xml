@@ -36,13 +36,29 @@
     <servlet-name>SaveServlet</servlet-name>
     <url-pattern>/remote/save</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>LogoutServlet</servlet-name>
     <servlet-class>com.login.LogoutServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/remote/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CalendarServlet</servlet-name>
+    <servlet-class>com.login.AuthorizeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalendarServlet</servlet-name>
+    <url-pattern>/remote/calendar</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Calendar2StepServlet</servlet-name>
+    <servlet-class>com.login.SaveOnCalendarServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Calendar2StepServlet</servlet-name>
+    <url-pattern>/remote/calendar2step</url-pattern>
   </servlet-mapping>
   <resource-ref>
     <description>DB Connection</description>

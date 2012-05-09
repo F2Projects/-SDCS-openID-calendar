@@ -38,6 +38,8 @@ public class LogoutServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User u = ((GoogleLogin)request.getSession().getAttribute("loginManager")).getLoggedUser();
 		request.getSession().setAttribute("loginManager", null);
+		request.getSession().setAttribute("authorizationManager", null);
+		
 		request.setAttribute("loginFailedMessage", u.getUsername() + " is logged out!");
         request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}

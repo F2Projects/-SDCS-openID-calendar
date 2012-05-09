@@ -1,16 +1,21 @@
 package com.login.data;
 
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Event {
 	private String subject;
-	private Calendar date;
+	private int day;
+	private int mounth;
+	private int year;
 	private String comment;
 	
 	public Event(){
 		subject="";
-		date=Calendar.getInstance();
+		day=0;
+		mounth=0;
+		year=0;
 		comment="";
 	}
 	
@@ -30,19 +35,28 @@ public class Event {
 	 * @return the day
 	 */
 	public int getDay() {
-		return this.date.get(Calendar.DAY_OF_MONTH);
+		
+		return this.day;
 	}
 	/**
 	 * @param sqlDate the date to set
 	 */
-	public void setDate(Date sqlDate) {
-		this.date.setTime(sqlDate);
+	public void setDay(int rDay) {
+		this.day = rDay;
+	}
+	public void setMounth(int rMounth) {
+		this.mounth = rMounth;
+	}
+	public void setYear(int rYear) {
+		this.year = rYear;
 	}
 	/**
 	 * @return the mounth
 	 */
 	public int getMounth() {
-		return this.date.get(Calendar.MONTH);
+		
+		return this.mounth;
+	
 	}
 	/**
 	 * @return the comment
@@ -60,6 +74,16 @@ public class Event {
 	 * @return the year
 	 */
 	public int getYear() {
-		return this.date.get(Calendar.YEAR);
+		return this.year;
 	}
+	
+	public Date getDate() throws ParseException{
+		String day = this.day<9 ? "0" + new Integer(this.day).toString() : new Integer(this.day).toString();
+		String year = new Integer(this.year).toString();
+		String mounth = this.mounth<9 ? "0" + new Integer(this.mounth).toString() : new Integer(this.mounth).toString();
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy"); 
+		
+		return sdf.parse(day+mounth+year);
+	}
+	
 }

@@ -6,17 +6,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
 	String[] mounths = new String[]{
-		"Gennary",
-		"Febbrary",
+		"","January",
+		"February",
 		"March",
 		"April",
+		"May",
 		"June",
 		"July",
-		"Agoust",
+		"August",
 		"September",
 		"October",
 		"November",
-		"December",
+		"December"
 	};
 	
 	User currentUser = null;
@@ -45,9 +46,9 @@
 		</form>
 	</div>
 	<div class="fileBrowser">
-		<form action="/Login/remote/save" method="post">
 			<%
 				if(currentUser.getRole().equals("teacher")){
+					out.print("<form action=\"/Login/remote/save\" method=\"post\">");
 					out.print("<fieldset>");
 					out.print("<legend>Add new exam:</legend>");
 					out.print("<select name=\"subject\" id=\"subject\">");
@@ -59,13 +60,17 @@
 						out.print("<option value=\""+i+"\">"+i+"</option>");
 					out.print("</select> ");
 					out.print("<select name=\"mounth\" id=\"mount\">");
-					for(int i=0; i<11; i++)
+					for(int i=1; i<12; i++)
 						out.print("<option value=\""+i+"\">"+mounths[i]+"</option>");
 					out.print("</select> ");
-					out.print("<input type=\"text\" name=\"year\" id=\"year\"><br>");
+					out.print("<select name=\"year\" id=\"year\">");
+					for(int i=2012; i<2016; i++)
+						out.print("<option value=\""+i+"\">"+i+"</option>");
+					out.print("</select><br>");
 					out.print("<textarea name=\"comments\" id=\"comments\" rows=\"2\" cols=\"20\"></textarea><br>");
 					out.print("<input type=\"submit\" value=\"Save\">");
 					out.print("</fieldset>");
+					out.print("</form>");
 				}
 			%>
 			<table>
@@ -80,10 +85,19 @@
 					out.print(e.getDay() + " " + mounths[e.getMounth()] + " " + e.getYear() + "<br>");
 					out.print(e.getComment() + "</td>");
 					out.print("</tr>");
+					out.print("<tr><td>");
+					out.print("<form action=\"/Login/remote/calendar\" method=\"post\">");
+					out.print("<input type=\"hidden\" name=\"subject\" id=\"subject\" value=\"" + e.getSubject() + "\">");
+					out.print("<input type=\"hidden\" name=\"day\" id=\"day\" value=\"" + e.getDay() + "\">");
+					out.print("<input type=\"hidden\" name=\"mounth\" id=\"mounth\" value=\"" + e.getMounth() + "\">");
+					out.print("<input type=\"hidden\" name=\"year\" id=\"year\" value=\"" + e.getYear() + "\">");
+					out.print("<input type=\"hidden\" name=\"comment\" id=\"comment\" value=\"" + e.getComment() + "\">");
+					out.print("<input type=\"submit\" value=\"Save Event on Google\">");
+					out.print("</form>");
+					out.print("</td></tr>");
 				}
 			%>
 			</table>
-		</form>
 	</div>
 </div>
 <div class="message" id="messageContainer">

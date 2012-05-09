@@ -14,5 +14,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/openid4java-0.9.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-api-client-1.8.0-beta.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/google-api-calendar-v3-rev3-java-1.5.0-beta.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

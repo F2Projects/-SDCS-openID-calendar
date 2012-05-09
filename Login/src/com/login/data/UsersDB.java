@@ -113,7 +113,9 @@ public class UsersDB {
 	
 	public synchronized ArrayList<Event> getEventList() throws Exception{
 		String sql = "select " + SUBJECTS.TABLE_NAME + "." + SUBJECTS.NAME_ID + ", " +
-								 AGENDA.TABLE_NAME + "." + AGENDA.DATE_ID + ", " +
+								 AGENDA.TABLE_NAME + "." + AGENDA.DAY_ID + ", " +
+								 AGENDA.TABLE_NAME + "." + AGENDA.MOUNTH_ID + ", " +
+								 AGENDA.TABLE_NAME + "." + AGENDA.YEAR_ID + ", " +
 								 AGENDA.TABLE_NAME + "." + AGENDA.COMMENTS_ID + 
 								 " from " + SUBJECTS.TABLE_NAME + ", " + AGENDA.TABLE_NAME +
 								 " where " + AGENDA.TABLE_NAME + "." + AGENDA.EXAM_NAME_ID + "=" + SUBJECTS.TABLE_NAME + "." + SUBJECTS.ID;
@@ -132,7 +134,9 @@ public class UsersDB {
 				Event currentEvent = new Event();
 				currentEvent.setSubject(rs.getString(SUBJECTS.NAME_ID));
 				currentEvent.setComment(rs.getString(AGENDA.COMMENTS_ID));
-				currentEvent.setDate(rs.getDate(AGENDA.DATE_ID));
+				currentEvent.setDay(rs.getInt(AGENDA.DAY_ID));
+				currentEvent.setMounth(rs.getInt(AGENDA.MOUNTH_ID));
+				currentEvent.setYear(rs.getInt(AGENDA.YEAR_ID));
 				eventList.add(currentEvent);
 			}
 		} catch (NamingException e) {
@@ -150,8 +154,8 @@ public class UsersDB {
 		// this is the query, written in sql language, used to insert a new user into the local database
 		String sql = "insert into " + AGENDA.TABLE_NAME + " values(null, '" +
 													newEvent.getSubject() + "', '" + 
-													newEvent.getComment() + "', '" + 
-													newEvent.getYear() + "-" + (newEvent.getMounth()+1) + "-" + newEvent.getDay() + "')";
+													newEvent.getComment() + "', " + 
+													newEvent.getDay() + ", " + newEvent.getMounth() + ", " + newEvent.getYear() + ")";
 		
 		try {
 			// connecting to the database
