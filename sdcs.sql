@@ -23,14 +23,16 @@ DROP TABLE IF EXISTS `agenda`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `agenda` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `subject` varchar(4) NOT NULL,
   `note` varchar(128) DEFAULT NULL,
-  `data` date DEFAULT NULL,
+  `day` int(11) DEFAULT NULL,
+  `mounth` int(11) DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `subject` (`subject`),
   CONSTRAINT `agenda_ibfk_1` FOREIGN KEY (`subject`) REFERENCES `subjects` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +41,7 @@ CREATE TABLE `agenda` (
 
 LOCK TABLES `agenda` WRITE;
 /*!40000 ALTER TABLE `agenda` DISABLE KEYS */;
+INSERT INTO `agenda` VALUES (17,'FG1','',1,1,2012),(18,'FG2','',14,8,2014),(19,'FG1','',4,5,2014),(20,'AM1','',1,1,2013);
 /*!40000 ALTER TABLE `agenda` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,6 +89,7 @@ CREATE TABLE `subjects` (
 
 LOCK TABLES `subjects` WRITE;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
+INSERT INTO `subjects` VALUES ('AM1','Analisi Matematica 1'),('AM2','Analisi Matematica 2'),('FG1','Fisica Generale 1'),('FG2','Fisica Generale 2'),('SDCS','Security and Dependability of Computer Systems');
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +115,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('boemianrapsodi@gmail.com',2);
+INSERT INTO `users` VALUES ('e.boemio@gmail.com',1),('boemianrapsodi@gmail.com',2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -124,4 +128,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-05-06 17:44:20
+-- Dump completed on 2012-05-10  0:54:29
