@@ -29,16 +29,16 @@ import com.google.api.services.calendar.CalendarScopes;
 
 public class GoogleAuthorization {
 	
-	// the client's identifier that Google has assigned to me
+	// client's identifier that Google has assigned to me
 	private final String CLIENT_ID = "475470206103.apps.googleusercontent.com";
-	// this is our secret string.. schhhh!
+	// this is our secret string.. shhhh!
 	private final String CIENT_SECRET = "4IY3VUmu13z5ri3w3S_fhRNW";
-	// the application scope or, as we like to call it, what the f**k can I do?
+	// application scope or, as we like to call it, what the f**k can I do?
 	private final List<String> SCOPES = Arrays.asList(CalendarScopes.CALENDAR);
 	
 	private String redirectUrl;
 	
-	// this is the object where the OAuth 2.0 algorithm is implemented
+	// within this object OAuth 2.0 algorithm is implemented
 	private GoogleAuthorizationCodeFlow flow=null;
 	// my pass to the world 
 	private Credential credential;
@@ -52,7 +52,7 @@ public class GoogleAuthorization {
 	 * @return
 	 */
 	public String getAuthorizationUrl(String redirectUri){
-		// I save the redirect url (the url where the user will be redirected after that the authentication operation will ended) in a field of the class 
+		// I save the redirect url (the url where the user will be redirected after the authentication operation will ended) in a field of the class 
 		this.redirectUrl = redirectUri;
 		
 		// here was generated the holder for the secrets of the current application
@@ -74,9 +74,9 @@ public class GoogleAuthorization {
 	 * This method executes the second step of OAuth 2.0 algorithm.
 	 * After that the user gives to Google the consent to give to me a token,
 	 * I receive a so called "Authentication Token", stored into the code variable.
-	 * It, with some additional informations, are sent to Google that gives me, finally, 
+	 * It, with some additional informations, is sent to Google. In reply I will receive, finally, 
 	 * the "Access Token" and the "Refresh Token". Both are stored into the credential class field
-	 * and used every time that the web app sends a request to the Google API.
+	 * and used every time the web app sends a request to the Google API.
 	 * 
 	 * @param code is the received Authentication Token
 	 * @throws IOException
@@ -89,7 +89,7 @@ public class GoogleAuthorization {
 	}
 	
 	/**
-	 * This method, simply, returns the credential that the user has generated using the methods above.
+	 * This method, simply, returns the credential the user has generated using the methods above.
 	 * Please, be careful: if you don't execute correctly the algorithm, this method return a null object
 	 * and you can fall in a NullPointerException.
 	 * 
