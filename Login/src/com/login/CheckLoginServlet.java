@@ -1,8 +1,8 @@
 /**
  * CheckLoginSevlet.java
  * -----------------------
- * This servlet is called after that the user have ended the login procedure on the Google site.
- * Here is checked if the login procedure ends successful and if the user have already a role. If not
+ * This servlet is called after the user ends the login procedure on the Google site.
+ * Here is checked if the login procedure ends successfully and if the user already have a role. If not
  * he was redirect to the registration page where he can assign a role to himself.
  * All this informations are stored into a database, as fields of the tables "users" and "roles" and 
  * accessed through the class "UsersDB.java"
