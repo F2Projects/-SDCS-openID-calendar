@@ -30,8 +30,8 @@
 <div class="footer">
 	This is a project for the exam of security and dependability of computing system 2011/2012; Authors are:<br>
 	Pasquale Boemio m63000200<br>
-	Antonio Bevilacqua m63eccecc<br>
-	Danilo Cicalese m63eccecc
+	Antonio Bevilacqua m63000162<br>
+	Danilo Cicalese m63000196
 </div>
 </body>
 </html>

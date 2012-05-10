@@ -50,19 +50,32 @@ public class SaveOnCalendarServlet extends HttpServlet {
 		GoogleAuthorization authorizationManager = (GoogleAuthorization) request.getSession().getAttribute("authorizationManager");
 		
 		String receivedCode = request.getParameter("code");
-			
-		if (authorizationManager.getCredential()==null) 
-			authorizationManager.genCredential(receivedCode);
 		
+		if(authorizationManager.getCredential()==null && receivedCode==null){
+			request.getSession().setAttribute("authorizationManager", null);
+			request.setAttribute("saveStatus", "You have not conclused the previous transaction. We have cleaned up the session, try now ;)");
+		}else {
+			if (authorizationManager.getCredential()==null) 
+				authorizationManager.genCredential(receivedCode);
+			request.setAttribute("saveStatus", this.googleLogic(request, authorizationManager));
+		}
+	    
+	    request.getSession().setAttribute("eventToSave", null);
+        request.getRequestDispatcher("/profile.jsp").forward(request, response);
+
+		
+	}
+	
+	private String googleLogic(HttpServletRequest request, GoogleAuthorization authorizationManager) throws IOException{
 		com.google.api.services.calendar.Calendar client = com.google.api.services.calendar.Calendar.builder(new NetHttpTransport(), new JacksonFactory()).
-										setApplicationName("sdcs_calendar").setHttpRequestInitializer(authorizationManager.getCredential()).build();
-		
+				setApplicationName("sdcs_calendar").setHttpRequestInitializer(authorizationManager.getCredential()).build();
+
 		String uninaCalendarId=null;
 		
 		CalendarList userCalendars = client.calendarList().list().execute();
 		for (CalendarListEntry retreivedCalendar : userCalendars.getItems()){
 			if(retreivedCalendar.getSummary().equals("UniNa Calendar"))
-				uninaCalendarId=retreivedCalendar.getId();
+					uninaCalendarId=retreivedCalendar.getId();
 		}
 		
 		if(uninaCalendarId==null){
@@ -73,14 +86,15 @@ public class SaveOnCalendarServlet extends HttpServlet {
 		
 		
 		com.login.data.Event eventToSave = (com.login.data.Event)request.getSession().getAttribute("eventToSave");
-
-		Event event = new Event();
-	    
-		event.setSummary(eventToSave.getSubject());
-	    
 		
+		Event event = new Event();
+		
+		event.setSummary(eventToSave.getSubject());
+		
+		Date startDate;
+		Event insertedEvent;
 		try {
-			Date startDate = eventToSave.getDate();
+			startDate = eventToSave.getDate();
 			DateTime start = new DateTime(startDate, TimeZone.getTimeZone("UTC"));
 			event.setStart(new EventDateTime().setDateTime(start));
 			
@@ -88,15 +102,12 @@ public class SaveOnCalendarServlet extends HttpServlet {
 			DateTime end = new DateTime(endDate, TimeZone.getTimeZone("UTC"));
 			event.setEnd(new EventDateTime().setDateTime(end));
 			
-			Event insertedEvent = client.events().insert(uninaCalendarId, event).execute();
-			request.setAttribute("saveStatus", "Saved event with id: " + insertedEvent.getId() + "<br>Date: " + startDate);
+			insertedEvent = client.events().insert(uninaCalendarId, event).execute();
 		} catch (ParseException e) {
-			request.setAttribute("saveStatus", "Error: " + e.getMessage());
+			return "Error: " + e.getMessage();
 		}
-	    
-	    request.getSession().setAttribute("eventToSave", null);
-        request.getRequestDispatcher("/profile.jsp").forward(request, response);
-
+			
+		return "Saved event with id: " + insertedEvent.getId() + "<br>Date: " + startDate;
 		
 	}
 
