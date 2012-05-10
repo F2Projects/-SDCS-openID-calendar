@@ -111,6 +111,13 @@ public class UsersDB {
 	
 	}
 	
+	/**
+	 * This method is used to extract the list of the events stored on the database.
+	 * It executes the query and return the result.. What you expected that made?
+	 * 
+	 * @return 
+	 * @throws Exception
+	 */
 	public synchronized ArrayList<Event> getEventList() throws Exception{
 		String sql = "select " + SUBJECTS.TABLE_NAME + "." + SUBJECTS.NAME_ID + ", " +
 								 AGENDA.TABLE_NAME + "." + AGENDA.DAY_ID + ", " +
@@ -150,6 +157,13 @@ public class UsersDB {
 		return eventList;
 	}
 	
+	/**
+	 * Another method that does query on database. This time it stores the informations the theacher inserts into the 
+	 * relative form.
+	 * 
+	 * @param newEvent
+	 * @return
+	 */
 	public synchronized String saveEvent(Event newEvent){
 		// this is the query, written in sql language, used to insert a new user into the local database
 		String sql = "insert into " + AGENDA.TABLE_NAME + " values(null, '" +
@@ -172,6 +186,13 @@ public class UsersDB {
 		return newEvent.getSubject() + " exam added!";
 	}
 	
+	/**
+	 * And now, the last method that performs query. It extracts the list of the subjects
+	 * previously stored on the database.
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public synchronized ArrayList<Subject> getSubjectList() throws Exception{
 		String sql = "select * from " + SUBJECTS.TABLE_NAME; 
 		
