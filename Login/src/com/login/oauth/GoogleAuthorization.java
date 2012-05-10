@@ -1,14 +1,14 @@
 /**
  * GoogleAuthorization.java
  * -----------------------------
- * This is the class that give you the authorization to the Google API,
- * this is the class that choose your destiny.
- * The operation of authorization is performed using the OAuth 2.0 algorithm, 
+ * This is the class that gives you the authorization to the Google API,
+ * this is the class that chooses your destiny.
+ * Authorization preocedure is performed using the OAuth 2.0 algorithm, 
  * which is a standard for Google. In particular the process is divided into 2 steps:
- * one is achieved calling getAuthorizationUrl() method that generates the url to the
- * Google's authentication page, and the second is achieved calling genCredential()
+ * fisrt one is achieved by calling getAuthorizationUrl() method that generates the url to the
+ * Google's authentication page, and the second one is achieved calling genCredential()
  * method that generates the access credentials to the Google API.
- * In the end, there is also a so little method, the getCredential() method, that
+ * In the end, there is also a very little method, the getCredential() method, that
  * offers, to those who require, the credentials previously created.
  */
 package com.login.oauth;
