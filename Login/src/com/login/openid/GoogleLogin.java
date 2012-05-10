@@ -1,10 +1,10 @@
 /**
  * GoogleLogin.java
  * -----------------
- * Here's to you the class that everyone wanted to see.
+ * Here's, just for you, the class everyone wants to see.
  * With it you can generate the special Google OpenID url,
- * check if the Google login procedure is terminated successful
- * and last but not least you can get a special data object containing
+ * check if the Google login procedure terminated successfully
+ * and, last but not least, you can get a special data object containing
  * the information of the current logged in user.
  * Store it as a session attribute, so you can get it in every part of your web app
  * and check in every moment if the user is logged in.
@@ -37,10 +37,10 @@ public class GoogleLogin {
 	private User loggedUser;
 	
 	/**
-	 * As explained into the Google OpenID API, to accomplish a login procedure you 
+	 * As explained into the Google OpenID API, in order to accomplish a login procedure you 
 	 * have to request a special url to the Google provider.
-	 * In the next step you have to redirect your browser to this url and leave that
-	 * Google doing the dirty work ;) 
+	 * In the next step you have to redirect your browser to this url and let Google
+	 * do the dirty work ;) 
 	 * 
 	 * @param redirectUrl is the url where, after that the login procedure is terminated, your browser will redirected
 	 * @return the special url generated only for you by the Google provider
@@ -79,7 +79,7 @@ public class GoogleLogin {
 	
 	
 	/**
-	 * After that you have generated a valid url invoking the genLoginUrl() and 
+	 * After you have generated a valid url invoking the genLoginUrl() and 
 	 * have redirect your browser to it, now you can invoke this method to check
 	 * if the procedure is finished successfully 
 	 * 
@@ -96,7 +96,7 @@ public class GoogleLogin {
 			// a successful login has a valid identifier
 			Identifier verified = verification.getVerifiedId();
 			if (verified != null){
-				// if the user accept the conditions, in the response there are some additional attributes 
+				// if the user accepts the conditions, in the response there are some additional attributes 
                 AuthSuccess authSuccess = (AuthSuccess) verification.getAuthResponse();
                 this.loggedUser = new User();
                 if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)){
