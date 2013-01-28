@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/Login/theme.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%
-	String[] mounths = new String[]{
+	String[] months = new String[]{
 		"","January",
 		"February",
 		"March",
@@ -61,7 +61,7 @@
 					out.print("</select> ");
 					out.print("<select name=\"mounth\" id=\"mount\">");
 					for(int i=1; i<12; i++)
-						out.print("<option value=\""+i+"\">"+mounths[i]+"</option>");
+						out.print("<option value=\""+i+"\">"+months[i]+"</option>");
 					out.print("</select> ");
 					out.print("<select name=\"year\" id=\"year\">");
 					for(int i=2012; i<2016; i++)
